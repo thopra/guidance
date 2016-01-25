@@ -4,6 +4,7 @@
     "type": "thopra-styleguide-template",
     "repositories": [
         { "type": "vcs", "url": "https://github.com/thopra/styleguide.git" }
+        { "type": "vcs", "url": "https://github.com/thopra/styleguide-template-installer.git" }
     ],
     "keywords": [
         "kss",
@@ -13,6 +14,7 @@
     "license": "MIT",
     "require": {
     	"thopra/styleguide":"dev-development",
+    	"thopra/styleguide-template-installer":"*",
     	"robloach/component-installer": "*",
         "components/font-awesome": "4.*",
         "components/jqueryui": "1.*",
