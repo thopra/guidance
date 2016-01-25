@@ -24,9 +24,5 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "config": {
-        "bin-dir": "bin",
-        "vendor-dir": "Packages/Libraries",
-    },
     "target-dir": "/styleguide/"
 }
