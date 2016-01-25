@@ -1,0 +1,27 @@
+{
+  "name": "styleguide-template-default",
+  "homepage": "https://github.com/thopra/styleguide-template-default",
+  "authors": [
+    "thopra <tpb@onm.de>"
+  ],
+  "description": "",
+  "main": "Assets/js/styleguide.js",
+  "moduleType": [
+    "globals"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "jquery-ui": "~1.11.4",
+    "components-font-awesome": "3.2.*",
+    "bootstrap": "~3.3.6"
+  },
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
