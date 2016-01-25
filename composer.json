@@ -26,8 +26,8 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "target-dir": "viewer",
     "config": {
-        "component-dir": "Assets/contrib"
+    	"vendor-dir": "viewer",
+        "component-dir": "viewer/Assets/contrib"
     }
 }
