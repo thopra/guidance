@@ -26,6 +26,7 @@
     "prefer-stable": true,
     "config": {
         "bin-dir": "bin",
-        "vendor-dir": "Packages/Libraries"
-    }
+        "vendor-dir": "Packages/Libraries",
+    },
+    "target-dir": "/styleguide/"
 }
