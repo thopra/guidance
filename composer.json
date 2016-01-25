@@ -1,5 +1,5 @@
 {
-    "name": "thopra/styleguide-frontend",
+    "name": "thopra/styleguide-template-default",
     "description": "Default template for thopra/styleguide",
     "type": "thopra-styleguide-template",
     "repositories": [
