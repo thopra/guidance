@@ -1,6 +1,7 @@
 {
     "name": "thopra/styleguide-frontend",
-    "description": "A frontend for thopra/styleguide",
+    "description": "Default template for thopra/styleguide",
+    "type": "thopra-styleguide-template",
     "repositories": [
         { "type": "vcs", "url": "https://github.com/thopra/styleguide.git" }
     ],
@@ -27,7 +28,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-    	"vendor-dir": "viewer",
-        "component-dir": "viewer/Assets/contrib"
+        "component-dir": "Assets/contrib"
     }
 }
