@@ -1,6 +1,6 @@
 <?php
 
-require_once('../Packages/Libraries/autoload.php');
+require_once('vendor/autoload.php');
 $styleguide = new \Thopra\Styleguide\Styleguide();
 $styleguide->setTitle('Test Styleguide');
 

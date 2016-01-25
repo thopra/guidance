@@ -12,8 +12,10 @@
     "license": "MIT",
     "require": {
     	"thopra/styleguide":"dev-development",
+    	"robloach/component-installer": "*",
         "components/font-awesome": "4.*",
-        "components/jqueryui": "1.*"
+        "components/jqueryui": "1.*",
+        "components/bootstrap": "3.3.*"
     },
     "authors": [
         {
@@ -24,5 +26,8 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "target-dir": "/styleguide/"
+    "target-dir": "viewer",
+    "config": {
+        "component-dir": "Assets/contrib"
+    }
 }
