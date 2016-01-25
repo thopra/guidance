@@ -1,0 +1,31 @@
+{
+    "name": "thopra/styleguide-frontend",
+    "description": "A frontend for thopra/styleguide",
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/thopra/styleguide.git" }
+    ],
+    "keywords": [
+        "kss",
+        "styleguide",
+        "css documentation"
+    ],
+    "license": "MIT",
+    "require": {
+    	"thopra/styleguide":"dev-development",
+        "components/font-awesome": "4.*",
+        "components/jqueryui": "1.*"
+    },
+    "authors": [
+        {
+            "name": "Thomas Prangenberg",
+            "email": "t@thomas-prangenberg.de",
+            "homepage": "http://www.thomas-prangenberg.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "bin-dir": "bin",
+        "vendor-dir": "Packages/Libraries"
+    }
+}
