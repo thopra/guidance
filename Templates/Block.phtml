@@ -1,8 +1,25 @@
+<?php 
+        // todo: do this in the core class
+        $hasTodo = FALSE;
+        if (count($vars['section']->getParameters()) > 0) {
+            foreach ($vars['section']->getParameters() as $parameter) { 
+                if (strpos($parameter->getName(), 'todo') !== FALSE || strpos($parameter->getDescription(), '@todo') !== FALSE) {
+                    $hasTodo = TRUE;
+                }
+            }
+        }
+?>
+
 <div class="styleguide__block" id="r<?php echo $vars['section']->getReference(); ?>">
-    <h3 class="styleguide__block__header">
+    <?php 
+        $level = $vars['section']->getDepth()+1;
+    ?>
+    <h<?php echo $level ?> class="styleguide__block__header">
         <span class="styleguide__block__title"><?php echo $vars['section']->getDescriptionTitle(); ?></span>
-        <span class="styleguide__block__filename"><?php echo $vars['section']->getFilename(); ?></span>
-    </h3>
+        <?php if ($vars['section']->getExperimental()) { ?><span class="label label-danger">Experimental!</span> <?php } ?>
+        <?php if ($vars['section']->getDeprecated()) { ?><span class="label label-default">Deprecated!</span> <?php } ?>
+        <?php if ($hasTodo) { ?><span class="label label-warning">ToDo</span> <?php } ?>
+    </h<?php echo $level ?>>
 
     <div class="styleguide__block__description">
         <p><?php echo nl2br($vars['section']->getDescriptionText()); ?></p>
@@ -27,28 +44,7 @@
             </ul>
         <?php } ?>
 
-        <?php
-            if (count($vars['section']->getParameters()) > 0) {
-        ?>
-            <ul class="styleguide__block__parameters">
-                <?php foreach ($vars['section']->getParameters() as $parameter) { ?>
-                    <li>
-                        <span class="styleguide__block__parameter-name">
-                            <?php echo $parameter->getName(); ?>
-                        </span>
-                        <?php if ($parameter->getDescription()) { ?>
-                            - <?php echo $parameter->getDescription(); ?>
-                        <?php } ?>
-                    </li>
-                <?php } ?>
-            </ul>
-        <?php } ?>
-
-        <?php
-            if ($vars['section']->getCompatibility()) {
-        ?>
-            <p class="styleguide__block__compatibility"><?php echo nl2br($vars['section']->getCompatibility()); ?></p>
-        <?php } ?>
+        
     </div>
 
 
@@ -57,29 +53,73 @@
     ?>
 
     <nav class="styleguide__block__tabs">
-        <a class="styleguide__block__enlarge" href="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>" target="_blank"><span class="fa fa-arrows-alt"></span></a>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">Preview</a></li>
-            <li><a href="#styleguideMarkup<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">Markup</a></li>
-            <li><a href="#styleguideComments<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">Notes (ToDo)</a></li>
+            <li class="active"><a title="Preview" href="#styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>"><span class="fa fa-eye"></span></a></li>
+            <li><a href="#styleguideMarkup<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>"><span class="fa fa-code"></span></a></li>
+            <li><a href="#styleguideInfo<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>"><span class="fa fa-info-circle"></span></a></li> 
+            <!-- <li><a href="#styleguideComments<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">Notes (ToDo)</a></li> -->
         </ul>
     </nav>
 
-    <div class="tab-content styleguide__block__preview">
-        <div class="tab-pane active styleguide__block__elements" id="styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
-            <div class="styleguide__block__element" data-preview="frame">
-                <iframe src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
+    <div class="tab-content">
+        <div class="tab-pane active styleguide__block__preview" id="styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
+            <div class="styleguide__block__preview__frame" data-preview="frame">
+                <iframe scrolling="no" src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
             </div>
-            <?php /* foreach ($vars['section']->getModifiers() as $modifier) { ?>
-                <div class="styleguide__block__element styleguide__element--modifier <?php ($modifier->isExtender()) ? 'styleguide__element--extender' : ''; ?>">
-                    <span class="styleguide__block__element__modifier-label <?php echo ($modifier->isExtender()) ? 'styleguide__element__modifier-label--extender' : ''; ?>"><?php echo $modifier->getName(); ?></span>
-                    <iframe src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>&modifier=<?php echo $modifier->getName(); ?>"></iframe>
-                </div>
-            <?php }  */?>
+            <a class="styleguide__block__preview__enlarge" href="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>" target="_blank"><span class="fa fa-arrows-alt"></span></a>
         </div>
 
         <div class="tab-pane styleguide__block__html" id="styleguideMarkup<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
             <pre class="styleguide__block__code"><code class="html"><?php echo htmlentities($vars['section']->getMarkupNormal('{class}')); ?></code></pre>
+        </div>
+
+        <div class="tab-pane styleguide__block__info" id="styleguideInfo<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
+            <dl class="dl-horizontal">
+                <dt>File:</dt>
+                <dd><?php echo $vars['section']->getFilename(); ?></dd>
+                <dt>Compatibility:</dt>
+                <dd><?php echo $vars['section']->getCompatibility() ? nl2br($vars['section']->getCompatibility()) : '-'; ?></dd>
+                <dt>Partial:</dt>
+                <dd><?php echo $vars['section']->getPartial() ? $vars['section']->getPartial() : '-' ?></dd>
+                <dt>Tags</dt>
+                <dd>
+                <?php
+                    if (count($vars['section']->getParameters()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
+                ?>
+                    <ul class="styleguide__block__parameters">
+                        <?php 
+                        if (count($vars['section']->getParameters()) > 0) {
+                        foreach ($vars['section']->getParameters() as $parameter) { ?>
+                            <li>
+                                <span class="styleguide__block__parameter-name">
+                                    <?php echo $parameter->getName(); ?>
+                                </span>
+                                <?php if ($parameter->getDescription()) { ?>
+                                    <?php echo $parameter->getDescription(); ?>
+                                <?php } ?>
+                            </li>
+                        <?php }
+                        } 
+                        ?>
+                        <?php if ($vars['section']->getDeprecated()) { ?>
+                        <li class="styleguide__block__parameter-experimental">
+                            <span class="styleguide__block__parameter-name">Deprecated!</span>
+                            <?php echo $vars['section']->getDeprecated() ?>
+                        </li>
+                        <?php } ?>
+                        <?php if ($vars['section']->getExperimental()) { ?>
+                        <li class="styleguide__block__parameter-experimental">
+                            <span class="styleguide__block__parameter-name">Experimental!</span>
+                            <?php echo $vars['section']->getExperimental() ?>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                <?php } else { ?>
+                    -
+                <?php }  ?>
+                </dd>
+
+            </dl>
         </div>
     </div>
     <?php

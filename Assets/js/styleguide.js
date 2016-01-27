@@ -12,6 +12,8 @@ $(function () {
 
 		breakpoints: [767,960,1140],
 		previews: [],
+		previewWidth: '100%',
+		previewWidthCalc: 0,
 
 		init: function()
 		{
@@ -31,6 +33,11 @@ $(function () {
 
 		onResize: function()
 		{
+			if (this.getBreakpoint() > 0) {
+				$.sidr('open', 'styleguideSections');
+			} else {
+				$.sidr('close', 'styleguideSections');
+			}
 			this.fitFramesToContents();
 		},
 
@@ -47,26 +54,56 @@ $(function () {
 
 		initResizableFrames: function()
 		{
-			$(".styleguide__canvas__frame").resizable({
-		    	containment: "parent",
-		    	minWidth: 310,
-		    	handles: 'e'
-		    });
+			this.resizePreviews();
 		},
 
 		initViewportControls: function()
 		{
 			// initialize range slider
+			var max = 100,
+				min = 0;
 		    $( "#styleguideViewportRange" ).slider({
-		      value: 100,
-		      min: 0,
-		      max: 100,
-		      slide: function( event, ui ) {
-		        $( "#styleguideViewportWidth" ).val( ui.value );
-		      }
+		      value: max,
+		      min: min,
+		      max: max,
+		      range: "min",
+		      slide: $.proxy(this.onViewportResize, this),
+		      start: $.proxy(this.onViewportResizeStart, this),
+		      stop:$.proxy(this.onViewportResizeStop, this)
 		    });
 		    $( "#styleguideViewportWidth" ).val( $( "#styleguideViewportRange" ).slider( "value" ) );
+			this.setPreviewWidth(100, true);
+
+			$('[data-viewport]').on('click', $.proxy(function(evt){
+				var val = $(evt.currentTarget).data('width');
+				if (val.toString().indexOf('%') != -1) {
+					val = parseInt(val);
+				} else {
+					val = $(evt.currentTarget).data('width')/$( "#styleguideViewportRange" ).width()*100;
+				}
+				$( "#styleguideViewportRange" ).slider('value', val );
+				this.setPreviewWidth(val, true);
+	        	this.resizePreviews();
+	        	this.fitFramesToContents();
+			}, this));
+
+			this.refreshViewportControls();
 		},
+
+		onViewportResize: function( event, ui ) {
+	        $( "#styleguideViewportWidth" ).val( ui.value );
+	        this.setPreviewWidth(ui.value, true);
+	        this.resizePreviews();
+	    }, 
+
+	    onViewportResizeStart: function( event, ui ) {
+	    	this.$element.addClass('styleguide--resizing');
+	    }, 
+
+	    onViewportResizeStop: function( event, ui ) {
+	    	this.$element.removeClass('styleguide--resizing');
+	    	this.fitFramesToContents();
+	    }, 
 
 		initTabs: function()
 		{
@@ -78,23 +115,29 @@ $(function () {
 
 		initPreviewFrames: function()
 		{
-			this.fitFramesToContents();
+			$(this.previews).each($.proxy(function(i, $el){
+				var $frame = $('iframe', $el);
+				this.fitFrameToContent($frame, $el);
+				//$frame.contens().requestAnimationFrame(this.fitFrameToContent);
+				$frame.load($.proxy(function(evt){
+					window.setTimeout($.proxy(function(){
+						this.fitFrameToContent($(evt.currentTarget), $el);
+					}, this), 50);
+				},this));
+			},this));
 		},
 
 		// set heights according to contents
 		fitFramesToContents: function()
 		{
 			$(this.previews).each($.proxy(function(i, $el){
-				$('iframe', $el).load($.proxy(function(evt){
-					console.debug(evt.currentTarget);
-					this.fitFrameToContent($(evt.currentTarget));
-				},this));
+				this.fitFrameToContent($('iframe', $el), $el);
 			},this));
 		},
 
-		fitFrameToContent: function($frame)
+		fitFrameToContent: function($frame, $parent)
 		{
-			$frame.height($($frame.contents()).height());
+			$parent.height($($frame.contents()).find('body').outerHeight(true));
 		},
 
 		getBreakpoint: function()
@@ -120,6 +163,52 @@ $(function () {
 		hideLoader: function()
 		{
 			this.$element.removeClass('styleguide--loading');
+		},
+
+		resizePreviews: function()
+		{
+			$(this.previews).each($.proxy(function(i, $el){
+				$el.width( this.previewWidth );
+			}, this));
+
+			this.refreshViewportControls();
+		},
+
+		setPreviewWidth: function(val, usePercentage)
+		{
+			if (usePercentage) {
+				this.previewWidth = val + "%"; // todo: dynamisch den Pixelwert setzen
+				this.previewWidthCalc = $( "#styleguideViewportRange .ui-slider-range" ).width();
+				return;
+			}
+
+			this.previewWidth = val;
+			this.previewWidthCalc = val;
+		},
+
+		refreshViewportControls: function()
+		{
+			$('[data-viewport]').each($.proxy(function(i, el){
+				var $el = $(el),
+					min = $el.data('viewport'),
+					max = false,
+					active = false;
+
+				if ($el.next() && $el.next().data('viewport')) {
+					var max = parseInt($el.next().data('viewport'))-1;
+				} 
+				if (max) { 
+					if (this.previewWidthCalc >= min && this.previewWidthCalc < max) { active = true; }
+				} else {
+					if (this.previewWidthCalc >= min) { active = true; }
+				}
+
+				if (active) {
+					$el.addClass('active');
+				} else {
+					$el.removeClass('active');
+				}
+			}, this));
 		}
 	}
 

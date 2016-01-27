@@ -1,0 +1,390 @@
+@import (reference) "../../contrib/components-font-awesome/less/font-awesome.less";
+
+.styleguide__icon {
+  display: inline-block;
+  font: normal normal normal @fa-font-size-base/@fa-line-height-base FontAwesome; // shortening font declaration
+  font-size: inherit; // can't have font-size inherit on line above, so need to override
+  text-rendering: auto; // optimizelegibility throws things off #1094
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.styleguide {
+
+	&__root {
+		padding: @styleguide-toolbar-height 0 0 0;
+	}
+
+	&__wrapper {
+		padding: @styleguide-wrapper-padding;
+		@media(min-width: @screen-md-min) {
+			padding: @styleguide-wrapper-padding-md;
+			padding-right: @styleguide-wrapper-padding-right;
+		}
+
+		> footer {
+			padding: 15px 0;
+			color: @gray-light;
+			font-size: @font-size-small;
+			border-top: 1px @gray-lighter solid;
+		}
+	}
+
+	&__toolbar {
+		height: @styleguide-toolbar-height;
+		background: @styleguide-toolbar-background;
+		position: fixed;
+		z-index: 999;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-bottom: 1px @styleguide-ui-border solid;
+		.transition(~".3s left");
+
+		.sidr-open &,
+		.sidr-animating & {
+			left: 260px;
+		}
+
+		@media (min-width: @screen-sm-min) {
+			padding: 0 40px 0 0;
+		}
+
+		> ul {
+			.list-unstyled();
+			.list-inline();
+			margin: 0;
+			padding: 0;
+
+			> li {
+				float: right;
+			}
+		}
+
+		&__menu {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: @styleguide-toolbar-height;
+			height: @styleguide-toolbar-height;
+			padding-top: 14px;
+
+			&:focus {
+				outline: none;
+			}
+
+			&:hover {
+				background: darken(@styleguide-toolbar-background, 5%);
+			}
+
+			> span {
+				position: absolute;
+				display: block;
+				.translate(-50%;-50%);
+				left: 50%;
+				top: 50%;
+
+				&,
+				&::before,
+				&::after {
+					display: block;
+					width: 30px;
+					height: 2px;
+					background: @gray-light;
+				}
+
+				&::before,
+				&::after {
+					content: "";
+					position: absolute;
+					top: -8px;
+					left: 0;
+				}
+
+				&::after {
+					top: 8px;
+				}
+
+				&:hover {
+					&,
+					&::before,
+					&::after {
+						background: @gray-darker;
+					}
+				}
+
+			}
+
+		}
+
+		a {
+			color: @styleguide-ui-color-text;
+		}
+	}
+
+	&__viewports {
+		display: none !important;
+		@media(min-width: @screen-sm-min){
+			display: block !important;
+		}
+		> ul {
+			.list-inline();
+
+			> li {
+				padding: 10px;
+				cursor: pointer;
+				color: @gray-lighter;
+				.transition(~".3s all");
+				&::before { 
+					.styleguide__icon();
+					font-size: 30px;
+					content: @fa-var-desktop; 
+				}
+
+				&.active {
+					color: @gray-dark;
+				}
+
+				&:hover {
+					color: @gray-light;
+				}
+
+				&.styleguide__viewports {
+					&__xs::before { content: @fa-var-mobile; }
+					&__sm::before { content: @fa-var-tablet; }
+					&__md::before { content: @fa-var-laptop; }
+
+					&__sm {
+						@media(max-width: @screen-xs-max) {
+							display: none;
+						}
+					}
+					&__md {
+						@media(max-width: @screen-sm-max) {
+							display: none;
+						}
+					}
+					&__lg {
+						@media(max-width: @screen-md-max) {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&__viewportrange {
+
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		@media (min-width: @screen-sm-min) {
+			padding: 0 40px 0 0;
+		}
+
+		input {
+			display: none;
+		}
+	}
+
+	&__nav {
+		background: @styleguide-nav-background;
+
+		&__brand {
+			display: block;
+			height: @styleguide-toolbar-height;
+			line-height: @styleguide-toolbar-height;
+			background: darken(@styleguide-nav-background, 5%);
+			color: #FFF;
+			font-size: 20px;
+			padding: 0 15px;
+
+			em {
+				font-size: 12px;
+				color: @gray-light;
+			}
+		}
+
+		> ul {
+			.list-unstyled;
+
+			a {
+				color: @gray-light;
+
+				&:hover { text-decoration: none; }
+			}
+
+			> li {
+				> a,
+				> span {
+					display: block;
+					padding: 8px 15px;
+					border-bottom: 1px lighten(@styleguide-nav-background, 5%) solid;
+				}
+				> span {
+					color: @gray;
+					font-style: italic;
+					padding-top: 16px;
+					font-size: @font-size-small;
+					border-bottom: 1px lighten(@styleguide-nav-background, 2%) solid;
+
+					&::before {
+						.styleguide__icon();
+						content: @fa-var-angle-down;
+						display: inline-block;
+						width: 15px;
+						text-align: left;
+					}
+				}
+
+				> ul {
+					.list-unstyled;
+					> li {
+						> a {
+							padding: 8px 15px;
+							display: block;
+							border-bottom: 1px lighten(@styleguide-nav-background, 5%) solid;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Reference blocks
+	&__block {
+		padding: 10px 0;
+
+		&__header {
+			.label {
+				font-size: @font-size-small;
+				vertical-align: top;
+			}
+		}
+
+		&__tabs {
+			margin: 0 -@styleguide-wrapper-padding;
+			@media(min-width: @screen-md-min) {
+				margin: 0 -@styleguide-wrapper-padding-md;
+			}
+		}
+
+		&__content {
+			
+		}
+
+		&__preview {
+			background: @gray-dark;
+			background: repeating-linear-gradient(
+			  45deg,
+			  @gray-dark,
+			  @gray-dark 3px,
+			  @gray-darker 3px,
+			  @gray-darker 6px
+			);
+			overflow: hidden;
+			position: relative;
+			padding: 0;
+			@media (max-width: @screen-sm-max) {
+				margin: 0;
+			}
+
+			@media (min-width: @screen-md-min) {
+				padding-right: @styleguide-wrapper-padding-right;
+			}
+
+			&__frame {
+				position: relative;
+				min-height: 80px;
+				background: #FFF;
+				box-shadow: 0 0 4px rgba(0,0,0,.7);
+
+				//blocker
+				&::after {
+					display: none;
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					top: 0;
+					z-index: 10;
+					bottom: 0;
+					//background: rgba(255,255,255,.2);
+				}
+
+				.styleguide--resizing & {
+					&::after {
+						display: block;
+					}
+				}
+
+				iframe {
+					border: none;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+
+			}
+
+			&__enlarge {
+				position: absolute;
+				right: 0;
+				top: 0;
+				color: #FFF;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				.opacity(.5);
+				.transition(.3s all);
+
+				&:hover {
+					.opacity(1);
+					color: #FFF;
+				}
+			}
+
+		}
+
+		&__filename {
+			.badge();
+			.pull-right();
+		}
+	}
+
+	// vx loader
+	&__loader {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: fade(#fff, 90%);
+
+		.styleguide--loading & {
+			display: block;
+		}
+
+		&__icon {
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			text-align: center;
+			font-size: 40px;
+			color: @gray-light;
+			.translate(0;-50%);
+
+			.fa {
+				-webkit-filter: blur(0); 
+			}
+		}
+	}
+}

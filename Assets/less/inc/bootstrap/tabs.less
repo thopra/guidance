@@ -1,0 +1,38 @@
+.nav-tabs {
+	padding: 0 @styleguide-wrapper-padding;
+	@media (min-width: @screen-md-min) {
+		padding: 0 @styleguide-wrapper-padding-md;
+	}
+
+	> li > a {
+		border-radius: 0;
+		border-color: transparent;
+
+		&:hover, &:focus {
+			background: transparent;
+			border-color: transparent;
+			border-bottom-color: @nav-tabs-link-hover-border-color;
+		}
+	}
+
+	> li.active > a,
+	> li.active > a:focus,
+	> li.active > a:active,
+	> li.active > a:hover {
+		border-color: transparent;
+		border-bottom-color: @nav-tabs-active-link-hover-border-color;
+		outline: none;
+	}
+}
+
+.tab-pane {
+	background: lighten(@gray-lighter, 3%);
+	padding: @styleguide-wrapper-padding;
+	margin: 0 -@styleguide-wrapper-padding;
+	border-bottom: 1px @nav-tabs-border-color solid;
+	@media(min-width: @screen-md-min) {
+		padding: @styleguide-wrapper-padding-md/2 @styleguide-wrapper-padding-md;
+		margin: 0 -@styleguide-wrapper-padding-md;
+		margin-right: -@styleguide-wrapper-padding-right;
+	}
+}

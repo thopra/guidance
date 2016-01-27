@@ -28,7 +28,7 @@
 //** Background color for `<body>`.
 @body-bg:               #fff;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            @gray-light;
 
 //** Global textual link color.
 @link-color:            @brand-primary;
@@ -48,13 +48,13 @@
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          14px;
+@font-size-base:          12px;
 @font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
 @font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
 
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h1:            floor((@font-size-base * 2.5)); // ~36px
+@font-size-h2:            floor((@font-size-base * 1.85)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.5)); // ~24px
 @font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
 @font-size-h5:            @font-size-base;
 @font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
@@ -66,7 +66,7 @@
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
-@headings-font-weight:    500;
+@headings-font-weight:    300;
 @headings-line-height:    1.1;
 @headings-color:          inherit;
 
@@ -426,13 +426,13 @@
 @nav-disabled-link-hover-color:             @gray-light;
 
 //== Tabs
-@nav-tabs-border-color:                     #ddd;
+@nav-tabs-border-color:                     @gray-lighter;
 
-@nav-tabs-link-hover-border-color:          @gray-lighter;
+@nav-tabs-link-hover-border-color:          @gray-light;
 
-@nav-tabs-active-link-hover-bg:             @body-bg;
+@nav-tabs-active-link-hover-bg:             transparent;
 @nav-tabs-active-link-hover-color:          @gray;
-@nav-tabs-active-link-hover-border-color:   #ddd;
+@nav-tabs-active-link-hover-border-color:   @gray-darker;
 
 @nav-tabs-justified-link-border-color:            #ddd;
 @nav-tabs-justified-active-link-border-color:     @body-bg;
@@ -867,3 +867,16 @@
 @dl-horizontal-breakpoint:    @grid-float-breakpoint;
 //** Horizontal line color.
 @hr-border:                   @gray-lighter;
+
+
+// custom vars
+@styleguide-background: #FFF;
+@styleguide-toolbar-height: 50px;
+@styleguide-toolbar-background: #FFF;
+@styleguide-nav-background: @gray-darker;
+@styleguide-ui-border: @gray-lighter;
+@styleguide-ui-color: @gray-dark;
+@styleguide-ui-color-text: @gray-light;
+@styleguide-wrapper-padding: 10px;
+@styleguide-wrapper-padding-md: @grid-gutter-width;
+@styleguide-wrapper-padding-right: 40px;

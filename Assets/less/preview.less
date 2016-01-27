@@ -1,4 +1,18 @@
-//apply a namespace to avoid any conflicts with the actual source file
-.styleguidePreviewRoot {
-	@import "styleguide.less";
+// contains only styles necessary to display components in the preview frame.
+// should be limited to the actual styles needed for that purpose only and avoid any interference with the classes that are displayed
+@import (reference) "inc/variables.less";
+@import (reference) "inc/bootstrap.less";
+
+.styleguide-preview {
+	margin: 0 !important;
+	padding: 0 !important;
+
+	body {
+		margin: 0 !important;
+		padding: @styleguide-wrapper-padding;
+
+		@media (min-width: @screen-md-min) {
+			padding: @styleguide-wrapper-padding-md;
+		}
+	}
 }
