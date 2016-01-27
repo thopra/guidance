@@ -270,6 +270,10 @@
 			@media(min-width: @screen-md-min) {
 				margin: 0 -@styleguide-wrapper-padding-md;
 			}
+
+			.fa {
+				font-size: 1.3em;
+			}
 		}
 
 		&__content {
@@ -353,9 +357,23 @@
 
 		}
 
-		&__filename {
-			.badge();
-			.pull-right();
+		&.valid {
+
+		}
+
+		&.notvalid {
+			.styleguide__block__tabs__info {
+				a {
+					&::after {
+						.styleguide__icon();
+						content: @fa-var-exclamation-triangle;
+						color: @brand-danger;
+						font-size: @font-size-small;
+						vertical-align: top;
+						margin-left: .5em;
+					}
+				}
+			}
 		}
 	}
 
@@ -385,6 +403,28 @@
 			.fa {
 				-webkit-filter: blur(0); 
 			}
+		}
+	}
+
+	&__validationresults {
+		.list-unstyled;
+	}
+
+	.error {
+		padding-left: 2em;
+		position: relative;
+
+		&::before {
+			.styleguide__icon();
+			content: @fa-var-exclamation-triangle;
+			color: @brand-danger;
+			position: absolute;
+			left: 0;
+			top: 0;
+			padding-top: 0.3em;
+		}
+		&__message {
+			display: block;
 		}
 	}
 }

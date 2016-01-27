@@ -125,6 +125,8 @@ $(function () {
 					}, this), 50);
 				},this));
 			},this));
+
+			this.validatePreviews();
 		},
 
 		// set heights according to contents
@@ -209,6 +211,58 @@ $(function () {
 					$el.removeClass('active');
 				}
 			}, this));
+		},
+
+		/*
+		 * Automatically send all generated markup to the validation service API at w3c
+		 * @todo: Does this have a request limit? Maybe validation should only commence on demand...
+		 */
+		validatePreviews: function()
+		{
+			$(this.previews).each($.proxy(function(i, $el){
+				this.validatePreview($el);
+			}, this));
+		},
+
+		validatePreview: function($element)
+		{
+			var frameDocument = $('iframe', $element).contents().get(0),
+			    $parent = $element.closest('.styleguide__block');
+
+			var node = frameDocument.doctype;
+			var doctype = "<!DOCTYPE "
+			         + node.name
+			         + (node.publicId ? ' PUBLIC "' + node.publicId + '"' : '')
+			         + (!node.publicId && node.systemId ? ' SYSTEM' : '') 
+			         + (node.systemId ? ' "' + node.systemId + '"' : '')
+			         + '>';
+
+				html = doctype + frameDocument.documentElement.outerHTML;
+
+			$.ajax("https://validator.nu/?out=json", {
+			    method: 'post',
+			    contentType: 'text/html; charset=utf-8',
+			    data: html,
+			    success: function(response){
+			    	if (response && response.messages) {
+			    		var errors = [], mess = '';
+			    		for (var x=0;x<response.messages.length;x++) {
+			    			if (response.messages[x].type == 'error') {
+			    				mess = $('<span class="error__message" />').text(response.messages[x].message);
+			    				extract = $('<code class="error__extract" />').text(response.messages[x].extract);
+			    				errors.push(mess);
+			    				$parent.addClass('notvalid');
+			    				$('<li class="error" />').html(mess).append(extract).appendTo($('[data-validation="results"]', $parent));
+			    			}
+			    		}
+			    		if (errors.length == 0) {
+			    			$parent.removeClass('notvalid').addClass('valid');
+			    			$('[data-validation="results"]', $parent).html('<li class="success">No validation errors found.</li>');
+			    		}
+			    	}
+			      
+			    }
+			});
 		}
 	}
 
