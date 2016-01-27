@@ -29,6 +29,8 @@ $(function () {
 			this.initPreviewFrames();
 
 			this.hideLoader();
+
+			hljs.initHighlightingOnLoad();
 		},
 
 		onResize: function()
