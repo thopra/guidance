@@ -124,11 +124,10 @@ $(function () {
 				$frame.load($.proxy(function(evt){
 					window.setTimeout($.proxy(function(){
 						this.fitFrameToContent($(evt.currentTarget), $el);
+						this.validatePreview($el);
 					}, this), 50);
 				},this));
 			},this));
-
-			this.validatePreviews();
 		},
 
 		// set heights according to contents
@@ -228,18 +227,12 @@ $(function () {
 
 		validatePreview: function($element)
 		{
-			var frameDocument = $('iframe', $element).contents().get(0),
+			var frame = $('iframe', $element).get(0),
 			    $parent = $element.closest('.styleguide__block');
-
-			var node = frameDocument.doctype;
-			var doctype = "<!DOCTYPE "
-			         + node.name
-			         + (node.publicId ? ' PUBLIC "' + node.publicId + '"' : '')
-			         + (!node.publicId && node.systemId ? ' SYSTEM' : '') 
-			         + (node.systemId ? ' "' + node.systemId + '"' : '')
-			         + '>';
-
-				html = doctype + frameDocument.documentElement.outerHTML;
+			var frameDocument = (frame.contentWindow || frame.contentDocument);
+			frameDocument = frameDocument.document;
+			var serializer = new XMLSerializer();
+			var html = serializer.serializeToString(frameDocument);
 
 			$.ajax("https://validator.nu/?out=json", {
 			    method: 'post',
