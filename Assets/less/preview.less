@@ -9,19 +9,22 @@
 
 	body {
 		margin: 0 !important;
-		padding: @styleguide-wrapper-padding;
-
-		@media (min-width: @screen-md-min) {
-			padding: @styleguide-wrapper-padding-md;
-		}
+		padding: 0 !important;
 	}
 
 	&__element {
-		.make-xs-column(12);
+		width: 100%;
 	}
 
 	&__preview {
-		.make-row();
+		
+		.styleguide-preview__element {
+			padding: @styleguide-wrapper-padding !important;
+
+			@media (min-width: @screen-md-min) {
+				padding: @styleguide-wrapper-padding-md !important;
+			}
+		}
 
 		&--xs-2 .styleguide-preview__element { .make-xs-column(6); }
 		&--xs-3 .styleguide-preview__element { .make-xs-column(4); }
@@ -47,18 +50,48 @@
 		&--lg-6 .styleguide-preview__element { .make-lg-column(2); }
 		&--lg-12 .styleguide-preview__element { .make-lg-column(1); }
 
+		&--vertical {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		&--hasmodifier,
+		&--vertical {
+			.styleguide-preview__element {
+			    border: 1px rgba(0,0,0,.1) dotted;
+			    border-left: 0;
+			    border-top: 0;
+			    display: block;
+				position: relative;
+			}
+		}
+
 	}
 
 	&__element--modifier {
-		border-top: 1px rgba(0,0,0,.05) solid;
+		/* border-top: 1px rgba(0,0,0,.05) solid;
 		margin-top: 3px;
-		padding-top: 2px;
+		padding-top: 2px; */
 	}
 
 	&__element__modifier-label {
-	    display: block;
-	    float: right;
+	    display: inline-block;
 	    font-size: @font-size-small;
-	    margin-bottom: 3px;
+	    color: #FFF;
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    background: #000;
+	    padding: 0.2em 0.5em;
+	    white-space: nowrap;
+	    max-width: 100%;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    .opacity(.6);
+	    .transition(~".2s all");
+
+	    &:hover {
+	    	.opacity(1);
+	    }
 	}
 }
