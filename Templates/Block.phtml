@@ -50,33 +50,42 @@
 
     <?php
         if ($vars['section']->hasMarkup()) {
+            $src = 'index.php?preview&ref='.$vars['section']->getReference().'&src='.$vars['styleguide']->getSource()->getKey();
+            $id = str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey());
     ?>
 
     <nav class="styleguide__block__tabs">
         <ul class="nav nav-tabs">
-            <li class="active styleguide__block__tabs__preview"><a title="Preview" href="#styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>"><span class="fa fa-eye"></span></a></li>
-            <li class="styleguide__block__tabs__markup"><a href="#styleguideMarkup<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>"><span class="fa fa-code"></span></a></li>
-            <li class="styleguide__block__tabs__info"><a href="#styleguideInfo<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>"><span class="fa fa-info-circle"></span></a></li> 
-            <!-- <li><a href="#styleguideComments<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">Notes (ToDo)</a></li> -->
+            <li class="active styleguide__block__tabs__preview"><a title="Preview" href="#styleguidePreview<?php echo$id; ?>"><span class="fa fa-eye"></span></a></li>
+            <li class="styleguide__block__tabs__markup"><a href="#styleguideMarkup<?php echo$id; ?>"><span class="fa fa-code"></span></a></li>
+            <li class="styleguide__block__tabs__info"><a href="#styleguideInfo<?php echo$id; ?>"><span class="fa fa-info-circle"></span></a></li> 
+            <!-- <li><a href="#styleguideComments<?php echo$id; ?>">Notes (ToDo)</a></li> -->
         </ul>
     </nav>
 
     <div class="tab-content">
-        <div class="tab-pane active styleguide__block__preview" id="styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
+        <div class="tab-pane active styleguide__block__preview" id="styleguidePreview<?php echo $id; ?>">
             <div class="styleguide__block__preview__frame" data-preview="frame">
-                <iframe scrolling="no" src="about:blank" data-src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
+                <iframe scrolling="no" src="about:blank" data-src="<?php echo $src ?>" name="preViewFrame_<?php echo $id ?>"></iframe>
                 <noscript>
-                    <iframe scrolling="no" src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
+                    <iframe scrolling="no" src="<?php echo $src ?>"></iframe>
                 </noscript>
             </div>
-            <a class="styleguide__block__preview__enlarge" href="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>" target="_blank"><span class="fa fa-arrows-alt"></span></a>
+            <ul class="styleguide__block__preview__actions">
+                <li>
+                    <a title="Inspect in new window" class="styleguide__block__preview__enlarge" href="<?php echo $src ?>" target="_blank"><span class="fa fa-clone"></span></a>
+                </li>
+                <li>
+                    <a title="Refresh" class="styleguide__block__preview__reload" target="preViewFrame_<?php echo $id ?>" href="<?php echo $src ?>" target="_blank"><span class="fa fa-refresh"></span></a>
+                </li>
+            </ul>
         </div>
 
-        <div class="tab-pane styleguide__block__html" id="styleguideMarkup<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
+        <div class="tab-pane styleguide__block__html" id="styleguideMarkup<?php echo$id; ?>">
             <pre class="styleguide__block__code"><code class="html"><?php echo htmlentities($vars['section']->getMarkupNormal('{class}')); ?></code></pre>
         </div>
 
-        <div class="tab-pane styleguide__block__info" id="styleguideInfo<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
+        <div class="tab-pane styleguide__block__info" id="styleguideInfo<?php echo$id; ?>">
             <dl class="dl-horizontal">
                 <dt>File:</dt>
                 <dd><?php echo $vars['section']->getFilename(); ?></dd>
