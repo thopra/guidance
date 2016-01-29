@@ -238,6 +238,7 @@ $(function () {
 			    method: 'post',
 			    contentType: 'text/html; charset=utf-8',
 			    data: html,
+			    async: true,
 			    success: function(response){
 			    	if (response && response.messages) {
 			    		var errors = [], mess = '';
