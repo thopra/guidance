@@ -40,7 +40,7 @@ $(function () {
 			} else {
 				$.sidr('close', 'styleguideSections');
 			}
-			this.fitFramesToContents();
+			//this.fitFramesToContents();
 		},
 
 		initMenu: function()
@@ -86,7 +86,7 @@ $(function () {
 				$( "#styleguideViewportRange" ).slider('value', val );
 				this.setPreviewWidth(val, true);
 	        	this.resizePreviews();
-	        	this.fitFramesToContents();
+	        	//this.fitFramesToContents();
 			}, this));
 
 			this.refreshViewportControls();
@@ -104,7 +104,7 @@ $(function () {
 
 	    onViewportResizeStop: function( event, ui ) {
 	    	this.$element.removeClass('styleguide--resizing');
-	    	this.fitFramesToContents();
+	    	//this.fitFramesToContents();
 	    }, 
 
 		initTabs: function()
@@ -142,7 +142,15 @@ $(function () {
 
 		fitFrameToContent: function($frame, $parent)
 		{
-			$parent.height($($frame.contents()).find('body').outerHeight(true));
+			var win = $frame.get(0).contentWindow || $frame.get(0),
+				doc = $frame.get(0).contentDocument || $frame.get(0).contentWindow.document,
+				height = doc.body.scrollHeight;
+				//height = $($frame.contents()).find('body').outerHeight(true);
+			if (height != $parent.height()) {
+				$parent.height(height);
+			}
+			
+			win.requestAnimationFrame($.proxy(this.fitFrameToContent, this, $frame, $parent));
 		},
 
 		getBreakpoint: function()
