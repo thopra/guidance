@@ -121,12 +121,14 @@ $(function () {
 				var $frame = $('iframe', $el);
 				this.fitFrameToContent($frame, $el);
 				//$frame.contens().requestAnimationFrame(this.fitFrameToContent);
-				$frame.load($.proxy(function(evt){
-					window.setTimeout($.proxy(function(){
+				$frame.one('load', $.proxy(function(evt){
+				    window.setTimeout($.proxy(function(){
 						this.fitFrameToContent($(evt.currentTarget), $el);
 						this.validatePreview($el);
 					}, this), 50);
-				},this));
+				},this)).each(function(){
+				    if (this.complete) { $(this).load(); }
+				});
 			},this));
 		},
 
