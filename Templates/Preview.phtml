@@ -1,5 +1,9 @@
-<div class="styleguide-preview__preview">
-	<div class="styleguide-preview_element">
+<?php 
+	$alignment = $vars['section']->getAlignment();
+?>
+
+<div class="styleguide-preview__preview styleguide-preview__preview--xs-<?php echo $alignment[0] ?> styleguide-preview__preview--sm-<?php echo $alignment[1] ?> styleguide-preview__preview--md-<?php echo $alignment[2] ?> styleguide-preview__preview--lg-<?php echo $alignment[3] ?>">
+	<div class="styleguide-preview__element">
 	    <?php echo $vars['section']->getMarkupNormal(); ?>
 	</div>
 <?php foreach ($vars['section']->getModifiers() as $modifier) { ?>
