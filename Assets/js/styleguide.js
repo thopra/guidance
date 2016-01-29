@@ -126,10 +126,9 @@ $(function () {
 						this.fitFrameToContent($(evt.currentTarget), $el);
 						this.validatePreview($el);
 					}, this), 50);
-				},this)).each(function(){
-					var frameDocument = (this.contentWindow || this.contentDocument);
-				    if (frameDocument.document.readyState == "complete") { $(this).load(); }
-				});
+				},this));
+
+				$frame.attr('src', $frame.data('src'));
 			},this));
 		},
 

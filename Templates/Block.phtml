@@ -64,7 +64,10 @@
     <div class="tab-content">
         <div class="tab-pane active styleguide__block__preview" id="styleguidePreview<?php echo str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey()); ?>">
             <div class="styleguide__block__preview__frame" data-preview="frame">
-                <iframe scrolling="no" src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
+                <iframe scrolling="no" src="about:blank" data-src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
+                <noscript>
+                    <iframe scrolling="no" src="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>"></iframe>
+                </noscript>
             </div>
             <a class="styleguide__block__preview__enlarge" href="index.php?preview&ref=<?php echo $vars['section']->getReference(); ?>&src=<?php echo $vars['styleguide']->getSource()->getKey(); ?>" target="_blank"><span class="fa fa-arrows-alt"></span></a>
         </div>
