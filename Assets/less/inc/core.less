@@ -206,6 +206,17 @@
 	&__nav {
 		background: @styleguide-nav-background;
 
+		&::after {
+			content: "";
+			left: 100%;
+			top: 0;
+			position: absolute;
+			height: 100%;
+			width: 1px;
+			background: #000;
+			box-shadow: 0 0 4px rgba(0,0,0,.9);
+		}
+
 		&__brand {
 			display: block;
 			height: @styleguide-toolbar-height;
