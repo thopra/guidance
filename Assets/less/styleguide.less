@@ -9,14 +9,14 @@
 
 /* customize sidr plugin */
 @media(min-width: @screen-sm-min) {
-	// prevent flickering when loading
+	// prevent flickering when loading (tricking sidr here, needs a transition, not meant to be initialized open)
 	.pending {
 		position: absolute;
 		left: 260px;
 
 		.styleguide__nav {
 			//left: 0 !important;
-			.transition(~"none");
+			.transition(~"0.01s left") !important;
 		}
 	}
 	.pending,

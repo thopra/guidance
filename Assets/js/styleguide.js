@@ -59,7 +59,7 @@ $(function () {
 			}
 			window.setTimeout(function(){
 				$('body').removeClass('pending');
-			}, 50);
+			}, 200);
 
 		},
 
