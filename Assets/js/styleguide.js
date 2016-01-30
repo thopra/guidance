@@ -51,12 +51,16 @@ $(function () {
 		initMenu: function()
 		{
 			$('.styleguide__toolbar__menu').sidr({
-				name: "styleguideSections"
+				name: "styleguideSections",
+				speed: 200
 			});
-
 			if (this.getBreakpoint() > 0) {
 				$.sidr('open', 'styleguideSections');
 			}
+			window.setTimeout(function(){
+				$('body').removeClass('pending');
+			}, 50);
+
 		},
 
 		initResizableFrames: function()
@@ -142,7 +146,6 @@ $(function () {
 
 		loadPreview: function(index, force)
 		{
-			console.debug(index);
 			if (!(index instanceof Array)) {
 				index = [index];
 			}

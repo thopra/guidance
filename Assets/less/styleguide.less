@@ -9,6 +9,17 @@
 
 /* customize sidr plugin */
 @media(min-width: @screen-sm-min) {
+	// prevent flickering when loading
+	.pending {
+		position: absolute;
+		left: 260px;
+
+		.styleguide__nav {
+			//left: 0 !important;
+			.transition(~"none");
+		}
+	}
+	.pending,
 	.sidr-open {
 		width: auto !important;
 		right: 0;
