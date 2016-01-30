@@ -14,9 +14,12 @@ $(function () {
 		previews: [],
 		previewWidth: '100%',
 		previewWidthCalc: 0,
+		loadPreviewsAtStart: new Array(3),
 
 		init: function()
 		{
+			for(var i=0;i<this.loadPreviewsAtStart.length;i++){ this.loadPreviewsAtStart[i] = i; }
+
 			this.showLoader();
 
 			this.initMenu();
@@ -123,18 +126,34 @@ $(function () {
 				var $frame = $('iframe', $el).show();
 				this.fitFrameToContent($frame, $el);
 				//$frame.contens().requestAnimationFrame(this.fitFrameToContent);
-				$frame.on('load', $.proxy(function(evt){
-				    window.setTimeout($.proxy(function(){
+				$frame.on('load', $.proxy(function(i, evt){
+				    //window.setTimeout($.proxy(function(){
 						this.fitFrameToContent($(evt.currentTarget), $el);
 						this.validatePreview($el);
 						$el.removeClass("loading");
-					}, this), 50);
-				},this));
-
-				$frame.attr('src', $frame.data('src'));
+						this.loadPreview([i+1,i+2,i+3]);
+					//}, this), 50);
+				},this,i));
 			},this));
 
+			this.loadPreview(this.loadPreviewsAtStart);
 			this.initResizables();
+		},
+
+		loadPreview: function(index, force)
+		{
+			console.debug(index);
+			if (!(index instanceof Array)) {
+				index = [index];
+			}
+			for(i=0;i<index.length;i++){
+				if (this.previews[index[i]]) {
+					var $frame = $('iframe', this.previews[index[i]]);
+					if ( $frame.attr('src') != $frame.data('src') || force ) {
+						$frame.attr('src', $frame.data('src'));
+					}
+				}
+			}
 		},
 
 		updatePreviewWidthIndicators: function($el)
