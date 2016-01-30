@@ -315,11 +315,33 @@
 				padding-right: @styleguide-wrapper-padding-right;
 			}
 
+			&:hover {
+				.styleguide__block__preview__frame::before {
+					.opacity(.8);
+					height: 100%;
+				}
+			}
+
 			&__frame {
 				position: relative;
 				min-height: 80px;
 				background: #FFF;
 				box-shadow: 0 0 4px rgba(0,0,0,.7);
+
+				// handle
+				&::before {
+					content: "";
+					display: block;
+					width: 2px;
+					position: absolute;
+					height: 60px;
+					top: 50%;
+					right: -4px;
+					background: @gray-light;
+					.translate(0;-50%);
+					.opacity(0);
+					.transition(.3s all);
+				}
 
 				//blocker
 				&::after {

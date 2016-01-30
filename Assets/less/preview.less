@@ -19,10 +19,10 @@
 	&__preview {
 		
 		.styleguide-preview__element {
-			padding: @styleguide-wrapper-padding !important;
+			padding: @styleguide-wrapper-padding/2 @styleguide-wrapper-padding;
 
 			@media (min-width: @screen-md-min) {
-				padding: @styleguide-wrapper-padding-md !important;
+				padding: @styleguide-wrapper-padding-md/3 @styleguide-wrapper-padding-md;
 			}
 		}
 
@@ -53,6 +53,14 @@
 		&--vertical {
 			display: flex;
 			flex-wrap: wrap;
+
+			.styleguide-preview__element {
+				padding: @styleguide-wrapper-padding !important;
+
+				@media (min-width: @screen-md-min) {
+					padding: @styleguide-wrapper-padding-md !important;
+				}
+			}
 		}
 
 		&--hasmodifier,

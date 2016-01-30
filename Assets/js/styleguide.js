@@ -41,6 +41,8 @@ $(function () {
 				$.sidr('close', 'styleguideSections');
 			}
 			//this.fitFramesToContents();
+
+			this.initResizables();
 		},
 
 		initMenu: function()
@@ -130,6 +132,28 @@ $(function () {
 
 				$frame.attr('src', $frame.data('src'));
 			},this));
+
+			this.initResizables();
+		},
+
+		initResizables: function()
+		{
+			$(this.previews).each($.proxy(function(i, $el){
+
+				$el.resizable({
+			      handles: "e",
+			      start: $.proxy(this.onViewportResizeStart, this),
+			      stop: $.proxy(this.onViewportResizeStop, this),
+			      maxWidth: this.getMaxResizeWidth()
+			    });
+
+			}, this));
+		},
+
+		// should obviously be more generic
+		getMaxResizeWidth: function()
+		{
+			return $( "#styleguideViewportRange" ).width();
 		},
 
 		// set heights according to contents
@@ -143,11 +167,13 @@ $(function () {
 		fitFrameToContent: function($frame, $parent)
 		{
 			var win = $frame.get(0).contentWindow || $frame.get(0),
-				doc = $frame.get(0).contentDocument || $frame.get(0).contentWindow.document,
-				height = doc.body.scrollHeight;
+				doc = $frame.get(0).contentDocument || $frame.get(0).contentWindow.document;
 				//height = $($frame.contents()).find('body').outerHeight(true);
-			if (height != $parent.height()) {
-				$parent.height(height);
+			if (doc && doc.body) {
+				height = doc.body.scrollHeight;
+				if (height != $parent.height()) {
+					$parent.height(height);
+				}
 			}
 			
 			win.requestAnimationFrame($.proxy(this.fitFrameToContent, this, $frame, $parent));
