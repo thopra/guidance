@@ -65,11 +65,12 @@
 
     <div class="tab-content">
         <div class="tab-pane active styleguide__block__preview" id="styleguidePreview<?php echo $id; ?>">
-            <div class="styleguide__block__preview__frame" data-preview="frame">
-                <iframe scrolling="no" src="about:blank" data-src="<?php echo $src ?>" name="preViewFrame_<?php echo $id ?>"></iframe>
+            <div class="styleguide__block__preview__frame loading" data-preview="frame">
+                <iframe scrolling="no" src="about:blank" class="styleguide__block__preview__frame__frame" data-src="<?php echo $src ?>" name="preViewFrame_<?php echo $id ?>"></iframe>
                 <noscript>
-                    <iframe scrolling="no" src="<?php echo $src ?>"></iframe>
+                    <iframe scrolling="no" src="<?php echo $src ?>" class="styleguide__block__preview__frame__fallback"></iframe>
                 </noscript>
+                <span class="styleguide__block__preview__frame__loader"></span>
                 <span class="styleguide__block__preview__frame__width" data-resize="width"></span>
             </div>
             <ul class="styleguide__block__preview__actions">

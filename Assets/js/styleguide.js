@@ -120,13 +120,14 @@ $(function () {
 		initPreviewFrames: function()
 		{
 			$(this.previews).each($.proxy(function(i, $el){
-				var $frame = $('iframe', $el);
+				var $frame = $('iframe', $el).show();
 				this.fitFrameToContent($frame, $el);
 				//$frame.contens().requestAnimationFrame(this.fitFrameToContent);
 				$frame.on('load', $.proxy(function(evt){
 				    window.setTimeout($.proxy(function(){
 						this.fitFrameToContent($(evt.currentTarget), $el);
 						this.validatePreview($el);
+						$el.removeClass("loading");
 					}, this), 50);
 				},this));
 
