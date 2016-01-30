@@ -320,6 +320,10 @@
 					.opacity(.8);
 					height: 100%;
 				}
+
+				.styleguide__block__preview__frame__width {
+					.opacity(.3);
+				}
 			}
 
 			&__frame {
@@ -327,6 +331,20 @@
 				min-height: 80px;
 				background: #FFF;
 				box-shadow: 0 0 4px rgba(0,0,0,.7);
+
+				&__width {
+					position: absolute;
+					left: 100%;
+					bottom: .3em;
+					padding-left: 6px;
+					font-size: @font-size-small;
+					color: #FFF;
+					.opacity(0);
+					.transition(.3s all);
+					.styleguide--resizing & {
+						.opacity(.8) !important;
+					}
+				}
 
 				// handle
 				&::before {

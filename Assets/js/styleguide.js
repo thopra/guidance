@@ -136,6 +136,13 @@ $(function () {
 			this.initResizables();
 		},
 
+		updatePreviewWidthIndicators: function()
+		{
+			$(this.previews).each($.proxy(function(i, $el){
+	    		$('[data-resize="width"]', $el).html($el.width());
+	    	}, this));
+		},
+
 		initResizables: function()
 		{
 			$(this.previews).each($.proxy(function(i, $el){
@@ -144,6 +151,7 @@ $(function () {
 			      handles: "e",
 			      start: $.proxy(this.onViewportResizeStart, this),
 			      stop: $.proxy(this.onViewportResizeStop, this),
+			      resize: $.proxy(this.updatePreviewWidthIndicators, this),
 			      maxWidth: this.getMaxResizeWidth()
 			    });
 
@@ -211,6 +219,7 @@ $(function () {
 			}, this));
 
 			this.refreshViewportControls();
+			this.updatePreviewWidthIndicators();
 		},
 
 		setPreviewWidth: function(val, usePercentage)
