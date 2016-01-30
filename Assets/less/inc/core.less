@@ -220,7 +220,12 @@
 			a {
 				color: @gray-light;
 
-				&:hover { text-decoration: none; }
+				&:hover,
+				&:focus,
+				&:active { 
+					text-decoration: none; 
+					background: transparent;
+				}
 			}
 
 			> li {
@@ -235,7 +240,7 @@
 					font-style: italic;
 					padding-top: 16px;
 					font-size: @font-size-small;
-					border-bottom: 1px lighten(@styleguide-nav-background, 2%) solid;
+					border-bottom: none;
 
 					&::before {
 						.styleguide__icon();
@@ -252,7 +257,19 @@
 						> a {
 							padding: 8px 15px;
 							display: block;
+							border-top: 1px lighten(@styleguide-nav-background, 5%) solid;
+						}
+						&:last-child a {
 							border-bottom: 1px lighten(@styleguide-nav-background, 5%) solid;
+						}
+
+						> ul {
+							padding: 5px 0 15px;
+							> li {
+								> a {
+									padding: 2px 15px 3px 30px;
+								}
+							}
 						}
 					}
 				}

@@ -12,31 +12,17 @@
                     <a href="index.php?ref='.$topLevelSection->getReference().'&src='.$source->getKey().'" title="'.$topLevelSection->getTitle().'">' .
                         $topLevelSection->getDescriptionTitle() .
                     '</a>' ;
-                    /* 
-                        <nav id="sections">
-                        <ul class="nav">
-
-                            <?php
-                            foreach ($Styleguide->getSource()->getParser()->getSectionChildren($Styleguide->getRef(), 1) as $navSection) {
+                    $childSections = $source->getParser()->getSectionChildren($topLevelSection->getReference());
+                    if (is_array($childSections) && count($childSections) && $Styleguide->getRef() == $topLevelSection->getReference()) {
+                        echo '<ul class="nav">';
+                            foreach ($childSections as $key => $navSection) {
                                 echo '<li><a href="#r' . $navSection->getReference() . '">' . $navSection->getDescriptionTitle() .'</a>';
-                                $subSections = $Styleguide->getSource()->getParser()->getSectionChildren($navSection->getReference());
-                                if ($subSections) {
-                                    echo '<ul>';
-                                    foreach ($subSections as $subSection) {
-                                        echo '<li><a href="#r' . $subSection->getReference() . '">' . $subSection->getDescriptionTitle() .'</a>';
-                                    }
-                                    echo '</ul>';
-                                }
-                                echo '</li>';
                             }
-                            ?>
-
-                        </ul>
-                        </nav> */
-
-                echo '</li>';
+                        echo '</ul>';
+                    }
+                echo "</li>";
             }
-            echo '</ul></li>';
+            echo "</ul></li>";
         }
     ?>
     </ul>
