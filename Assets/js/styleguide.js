@@ -10,7 +10,7 @@ $(function () {
 
 	Styleguide.prototype = {
 
-		breakpoints: [767,960,1140],
+		breakpoints: [768,992,1200],
 		previews: [],
 		previewWidth: '100%',
 		previewWidthCalc: 0,
@@ -136,22 +136,36 @@ $(function () {
 			this.initResizables();
 		},
 
-		updatePreviewWidthIndicators: function()
+		updatePreviewWidthIndicators: function($el)
 		{
+			if ($el) {
+				$('[data-resize="width"]', $el).html($el.width());
+				return;
+			}
 			$(this.previews).each($.proxy(function(i, $el){
 	    		$('[data-resize="width"]', $el).html($el.width());
 	    	}, this));
+		},
+
+		onResizableResize: function( event, ui)
+		{
+			this.updatePreviewWidthIndicators(ui.element);
 		},
 
 		initResizables: function()
 		{
 			$(this.previews).each($.proxy(function(i, $el){
 
+				if ($el.resizable( "instance" )) {
+					$el.resizable( "option", "maxWidth", this.getMaxResizeWidth() );
+					return;
+				}
+
 				$el.resizable({
 			      handles: "e",
 			      start: $.proxy(this.onViewportResizeStart, this),
 			      stop: $.proxy(this.onViewportResizeStop, this),
-			      resize: $.proxy(this.updatePreviewWidthIndicators, this),
+			      resize: $.proxy(this.onResizableResize, this),
 			      maxWidth: this.getMaxResizeWidth()
 			    });
 
@@ -226,7 +240,7 @@ $(function () {
 		{
 			if (usePercentage) {
 				this.previewWidth = val + "%"; // todo: dynamisch den Pixelwert setzen
-				this.previewWidthCalc = $( "#styleguideViewportRange .ui-slider-range" ).width();
+				this.previewWidthCalc = (val/100)*$( "#styleguideViewportRange" ).width();
 				return;
 			}
 
@@ -242,9 +256,11 @@ $(function () {
 					max = false,
 					active = false;
 
+
 				if ($el.next() && $el.next().data('viewport')) {
 					var max = parseInt($el.next().data('viewport'))-1;
 				} 
+					
 				if (max) { 
 					if (this.previewWidthCalc >= min && this.previewWidthCalc < max) { active = true; }
 				} else {
