@@ -146,11 +146,14 @@
                     -
                 <?php }  ?>
                 </dd>
+                <?php if ($vars['section']->getValidate()) { ?>
+
                 <dt>Validation (HTML)</dt>
                 <dd>
                     <ul class="styleguide__validationresults" data-validation="results"></ul>
                 </dd>
 
+                <?php } ?>
             </dl>
         </div>
     </div>

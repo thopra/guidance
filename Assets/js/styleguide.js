@@ -313,6 +313,11 @@ $(function () {
 		{
 			var frame = $('iframe', $element).get(0),
 			    $parent = $element.closest('.styleguide__block');
+
+			if ($('[data-validation="results"]', $parent).length == 0) {
+				return;
+			}
+
 			var frameDocument = (frame.contentWindow || frame.contentDocument);
 			frameDocument = frameDocument.document;
 			var serializer = new XMLSerializer();
