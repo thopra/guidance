@@ -330,6 +330,18 @@
 			}
 		}
 
+		&__info {
+			@media (min-width: @screen-md-min) {
+				.clearfix();
+				&__params,
+				&__properties {
+					width: 50%;
+					float: left;
+					padding-right: 30px;
+				}
+			}
+		}
+
 		&__preview {
 			background: @gray-dark;
 			background: repeating-linear-gradient(

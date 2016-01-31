@@ -11,28 +11,6 @@
 
     <div class="styleguide__block__description">
         <p><?php echo nl2br($vars['section']->getDescriptionText()); ?></p>
-        <?php
-            if (count($vars['section']->getModifiers()) > 0) {
-        ?>
-            <ul class="styleguide__block__modifiers">
-                <?php foreach ($vars['section']->getModifiers() as $modifier) { ?>
-                    <li>
-                        <span class="styleguide__block__modifier-name <?php echo ($modifier->isExtender()) ? 'styleguide__modifier-name--extender' : ''; ?>">
-                            <?php echo $modifier->getName(); ?>
-                        </span>
-                            <?php if ($modifier->isExtender()) { ?>
-                                @extend
-                                <span class="styleguide__block__modifier-name"><?php echo $modifier->getExtendedClass(); ?></span>
-                            <?php } ?>
-                        <?php if ($modifier->getDescription()) { ?>
-                            - <?php echo $modifier->getDescription(); ?>
-                        <?php } ?>
-                    </li>
-                <?php } ?>
-            </ul>
-        <?php } ?>
-
-        
     </div>
 
 
@@ -76,85 +54,121 @@
         </div>
 
         <div class="tab-pane styleguide__block__info" id="styleguideInfo<?php echo$id; ?>">
-            <dl class="dl-horizontal">
-                <dt>File:</dt>
-                <dd><?php echo $vars['section']->getFilename(); ?></dd>
-                <dt>Compatibility:</dt>
-                <dd><?php echo $vars['section']->getCompatibility() ? nl2br($vars['section']->getCompatibility()) : '-'; ?></dd>
-                <dt>Partial:</dt>
-                <dd><?php echo $vars['section']->getPartial() ? $vars['section']->getPartial() : '-' ?></dd>
-                <dt>Parameters</dt>
-                <dd>
-                <?php
-                    if (count($vars['section']->getParameters()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
-                ?>
-                    <ul class="styleguide__block__parameters">
-                        <?php 
-                        if (count($vars['section']->getParameters()) > 0) {
-                        foreach ($vars['section']->getParameters() as $parameter) { ?>
-                            <li>
-                                <span class="styleguide__block__parameter-name">
-                                    <?php echo $parameter->getName(); ?>
-                                </span>
-                                <?php if ($parameter->getDescription()) { ?>
-                                    <?php echo $parameter->getDescription(); ?>
-                                <?php } ?>
+            <div class="styleguide__block__info__properties">
+                
+                <dl class="dl-horizontal">
+                    <dt>File:</dt>
+                    <dd><?php echo $vars['section']->getFilename(); ?></dd>
+                    <dt>Compatibility:</dt>
+                    <dd><?php echo $vars['section']->getCompatibility() ? nl2br($vars['section']->getCompatibility()) : '-'; ?></dd>
+                    <dt>Partial:</dt>
+                    <dd><?php echo $vars['section']->getPartial() ? $vars['section']->getPartial() : '-' ?></dd>
+                    <dt>Tags</dt>
+                    <dd>
+                    <?php
+                        if (count($vars['section']->getTags()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
+                    ?>
+                        <ul class="styleguide__block__parameters">
+                            <?php 
+                            if (count($vars['section']->getTags()) > 0) {
+                            foreach ($vars['section']->getTags() as $parameter) { ?>
+                                <li>
+                                    <span class="styleguide__block__parameter-name">
+                                        <?php echo $parameter->getName(); ?>
+                                    </span>
+                                    <?php if ($parameter->getDescription()) { ?>
+                                        <?php echo $parameter->getDescription(); ?>
+                                    <?php } ?>
+                                </li>
+                            <?php }
+                            } 
+                            ?>
+
+                            <?php if ($vars['section']->getDeprecated()) { ?>
+                            <li class="styleguide__block__parameter-experimental">
+                                <span class="styleguide__block__parameter-name">Deprecated!</span>
+                                <?php echo $vars['section']->getDeprecated() ?>
                             </li>
-                        <?php }
-                        } 
-                        ?>
-                    </ul>
-                <?php } else { ?>
-                    -
-                <?php }  ?>
-                </dd>
-                <dt>Tags</dt>
-                <dd>
-                <?php
-                    if (count($vars['section']->getTags()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
-                ?>
-                    <ul class="styleguide__block__parameters">
-                        <?php 
-                        if (count($vars['section']->getTags()) > 0) {
-                        foreach ($vars['section']->getTags() as $parameter) { ?>
-                            <li>
-                                <span class="styleguide__block__parameter-name">
-                                    <?php echo $parameter->getName(); ?>
-                                </span>
-                                <?php if ($parameter->getDescription()) { ?>
-                                    <?php echo $parameter->getDescription(); ?>
-                                <?php } ?>
+                            <?php } ?>
+                            <?php if ($vars['section']->getExperimental()) { ?>
+                            <li class="styleguide__block__parameter-experimental">
+                                <span class="styleguide__block__parameter-name">Experimental!</span>
+                                <?php echo $vars['section']->getExperimental() ?>
                             </li>
-                        <?php }
-                        } 
-                        ?>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        -
+                    <?php }  ?>
+                    </dd>
+                    <?php if ($vars['section']->getValidate()) { ?>
 
-                        <?php if ($vars['section']->getDeprecated()) { ?>
-                        <li class="styleguide__block__parameter-experimental">
-                            <span class="styleguide__block__parameter-name">Deprecated!</span>
-                            <?php echo $vars['section']->getDeprecated() ?>
-                        </li>
-                        <?php } ?>
-                        <?php if ($vars['section']->getExperimental()) { ?>
-                        <li class="styleguide__block__parameter-experimental">
-                            <span class="styleguide__block__parameter-name">Experimental!</span>
-                            <?php echo $vars['section']->getExperimental() ?>
-                        </li>
-                        <?php } ?>
-                    </ul>
-                <?php } else { ?>
-                    -
-                <?php }  ?>
-                </dd>
-                <?php if ($vars['section']->getValidate()) { ?>
+                    <dt>Validation (HTML)</dt>
+                    <dd>
+                        <ul class="styleguide__validationresults" data-validation="results"></ul>
+                    </dd>
 
-                <dt>Validation (HTML)</dt>
-                <dd>
-                    <ul class="styleguide__validationresults" data-validation="results"></ul>
-                </dd>
+                    <?php } ?>
+                </dl>
 
-                <?php } ?>
-            </dl>
+            </div>
+            <div class="styleguide__block__info__params">
+
+                <dl class="dl-horizontal">
+                    <dt>Modifiers</dt>
+                    <dd>
+                     <?php
+                        if (count($vars['section']->getModifiers()) > 0) {
+                    ?>
+                        <ul class="styleguide__block__modifiers">
+                            <?php foreach ($vars['section']->getModifiers() as $modifier) { ?>
+                                <li>
+                                    <span class="styleguide__block__modifier-name <?php echo ($modifier->isExtender()) ? 'styleguide__modifier-name--extender' : ''; ?>">
+                                        <?php echo $modifier->getName(); ?>
+                                    </span>
+                                        <?php if ($modifier->isExtender()) { ?>
+                                            @extend
+                                            <span class="styleguide__block__modifier-name"><?php echo $modifier->getExtendedClass(); ?></span>
+                                        <?php } ?>
+                                    <?php if ($modifier->getDescription()) { ?>
+                                        - <?php echo $modifier->getDescription(); ?>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        -
+                    <?php }  ?>
+                    </dd>
+                    <dt>Parameters</dt>
+                    <dd>
+                    <?php
+                        if (count($vars['section']->getParameters()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
+                    ?>
+                        <ul class="styleguide__block__parameters">
+                            <?php 
+                            if (count($vars['section']->getParameters()) > 0) {
+                            foreach ($vars['section']->getParameters() as $parameter) { ?>
+                                <li>
+                                    <span class="styleguide__block__parameter-name">
+                                        <?php echo $parameter->getName(); ?>
+                                    </span>
+                                    <?php if ($parameter->getDescription()) { ?>
+                                        <?php echo $parameter->getDescription(); ?>
+                                    <?php } ?>
+                                </li>
+                            <?php }
+                            } 
+                            ?>
+                        </ul>
+                    <?php } else { ?>
+                        -
+                    <?php }  ?>
+                    </dd>
+
+                </dl>
+
+            </div>
         </div>
     </div>
     <?php
