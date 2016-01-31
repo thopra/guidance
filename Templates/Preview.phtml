@@ -9,9 +9,14 @@
 ?>
 
 <div class="styleguide-preview__preview <?php if ($hasmodifier){ echo "styleguide-preview__preview--hasmodifier"; } ?> <?php if ($alignment && $alignment != array(1,1,1,1)) { ?> styleguide-preview__preview--vertical styleguide-preview__preview--xs-<?php echo $alignment[0] ?> styleguide-preview__preview--sm-<?php echo $alignment[1] ?> styleguide-preview__preview--md-<?php echo $alignment[2] ?> styleguide-preview__preview--lg-<?php echo $alignment[3]; } ?>">
+<?php if ($vars['section']->getStandalone()) { ?>
+
 	<div class="styleguide-preview__element">
 	    <?php echo $vars['section']->getMarkupNormal(); ?>
 	</div>
+
+<?php } ?>
+
 <?php foreach ($vars['section']->getModifiers() as $modifier) { ?>
     <div class="styleguide-preview__element styleguide-preview__element--modifier <?php ($modifier->isExtender()) ? 'styleguide-preview__element--extender' : ''; ?>">
         <span class="styleguide-preview__element__modifier-label <?php echo ($modifier->isExtender()) ? 'styleguide-preview__element__modifier-label--extender' : ''; ?>"><?php echo $modifier->getName(); ?></span>

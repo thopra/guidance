@@ -1,15 +1,3 @@
-<?php 
-        // todo: do this in the core class
-        $hasTodo = FALSE;
-        if (count($vars['section']->getParameters()) > 0) {
-            foreach ($vars['section']->getParameters() as $parameter) { 
-                if (strpos($parameter->getName(), 'todo') !== FALSE || strpos($parameter->getDescription(), '@todo') !== FALSE) {
-                    $hasTodo = TRUE;
-                }
-            }
-        }
-?>
-
 <div class="styleguide__block" id="r<?php echo $vars['section']->getReference(); ?>">
     <?php 
         $level = $vars['section']->getDepth()+1;
@@ -18,7 +6,7 @@
         <span class="styleguide__block__title"><?php echo $vars['section']->getDescriptionTitle(); ?></span>
         <?php if ($vars['section']->getExperimental()) { ?><span class="label label-danger">Experimental!</span> <?php } ?>
         <?php if ($vars['section']->getDeprecated()) { ?><span class="label label-default">Deprecated!</span> <?php } ?>
-        <?php if ($hasTodo) { ?><span class="label label-warning">ToDo</span> <?php } ?>
+        <?php if ($vars['section']->getTodo()) { ?><span class="label label-warning">ToDo</span> <?php } ?>
     </h<?php echo $level ?>>
 
     <div class="styleguide__block__description">
@@ -95,7 +83,7 @@
                 <dd><?php echo $vars['section']->getCompatibility() ? nl2br($vars['section']->getCompatibility()) : '-'; ?></dd>
                 <dt>Partial:</dt>
                 <dd><?php echo $vars['section']->getPartial() ? $vars['section']->getPartial() : '-' ?></dd>
-                <dt>Tags</dt>
+                <dt>Parameters</dt>
                 <dd>
                 <?php
                     if (count($vars['section']->getParameters()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
@@ -115,6 +103,32 @@
                         <?php }
                         } 
                         ?>
+                    </ul>
+                <?php } else { ?>
+                    -
+                <?php }  ?>
+                </dd>
+                <dt>Tags</dt>
+                <dd>
+                <?php
+                    if (count($vars['section']->getTags()) > 0 || $vars['section']->getDeprecated() || $vars['section']->getExperimental()) {
+                ?>
+                    <ul class="styleguide__block__parameters">
+                        <?php 
+                        if (count($vars['section']->getTags()) > 0) {
+                        foreach ($vars['section']->getTags() as $parameter) { ?>
+                            <li>
+                                <span class="styleguide__block__parameter-name">
+                                    <?php echo $parameter->getName(); ?>
+                                </span>
+                                <?php if ($parameter->getDescription()) { ?>
+                                    <?php echo $parameter->getDescription(); ?>
+                                <?php } ?>
+                            </li>
+                        <?php }
+                        } 
+                        ?>
+
                         <?php if ($vars['section']->getDeprecated()) { ?>
                         <li class="styleguide__block__parameter-experimental">
                             <span class="styleguide__block__parameter-name">Deprecated!</span>
