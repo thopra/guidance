@@ -1,0 +1,13 @@
+{
+	"title": "Untitled Styleguide",
+	"cache": {
+		"enable": true,
+		"dir": "guidance/Cache/",
+		"lifetime": 5
+	},
+	"settings": {
+		"loadPreviewsAtStart": 3,
+		"enableValidation": true
+	},
+	"sources": []
+}
