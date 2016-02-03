@@ -1,7 +1,7 @@
 <?php
-namespace Thopra;
+namespace Thopra\Guidance;
 
-class Guidance {
+class Frontend {
 
 	protected $configFile = false;
 
