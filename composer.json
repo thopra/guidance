@@ -1,6 +1,6 @@
 {
-    "name": "thopra/styleguide-template-default",
-    "description": "Default template for thopra/styleguide",
+    "name": "thopra/guidance",
+    "description": "A configurable frontend for thopra/styleguide",
     "type": "thopra-guidance",
     "repositories": [
         { "type": "vcs", "url": "https://github.com/thopra/styleguide.git" },
