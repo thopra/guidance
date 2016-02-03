@@ -23,6 +23,11 @@
             "homepage": "http://www.thomas-prangenberg.de"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Thopra\\Guidance\\": "guidance/Classes/"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
