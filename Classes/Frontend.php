@@ -30,7 +30,7 @@ class Frontend {
 		if(is_array($this->config['sources'])) {
 			foreach ($this->config['sources'] as $key => $sourceConf) {
 				$source = new \Thopra\Styleguide\Source\Source(dirname($this->configFile).'/'.$sourceConf['dir'], $sourceConf['key'], $sourceConf['title']);
-				$source->setPartialDir($sourceConf['partialDir']);
+				$source->setPartialDir(realpath(dirname($this->configFile)).'/'.$sourceConf['partialDir']);
 				if(is_array($sourceConf['resources'])) {
 					foreach ($sourceConf['resources'] as $key => $resource) {
 						if (is_string($resource)) {
