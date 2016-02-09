@@ -12,7 +12,7 @@
                     <a href="index.php?ref='.$topLevelSection->getReference().'&src='.$source->getKey().'" title="'.$topLevelSection->getTitle().'">' .
                         $topLevelSection->getDescriptionTitle() .
                     '</a>' ;
-                    $childSections = $source->getParser()->getSectionChildren($topLevelSection->getReference());
+                    $childSections = $source->getParser()->getSectionChildren($topLevelSection->getReference(), true);
                     if (is_array($childSections) && count($childSections) && $Styleguide->getRef() == $topLevelSection->getReference()) {
                         echo '<ul class="nav">';
                             foreach ($childSections as $key => $navSection) {
