@@ -9,10 +9,6 @@
     	echo '<link rel="stylesheet" type="text/css" href="'.$resource.'" />';
     }
 
-    foreach ($Styleguide->getSource()->getJSResources() as $resource) {
-    	echo '<script src="'.$resource.'"></script>';
-    }
-
     ?>
     
     <link rel="stylesheet" href="guidance/Assets/css/preview.css" />
@@ -20,7 +16,13 @@
 </head>
 <body>
 
-	<?php $Styleguide->displayTemplate('Preview', $vars); ?>
+	<?php $Styleguide->displayTemplate('Preview', $vars);
+
+    foreach ($Styleguide->getSource()->getJSResources() as $resource) {
+        echo '<script src="'.$resource.'"></script>';
+    }
+
+     ?>
 
 </body>
 </html> 
