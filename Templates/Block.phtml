@@ -16,7 +16,7 @@
 
     <?php
         if ($vars['section']->hasMarkup()) {
-            $src = 'index.php?preview&ref='.$vars['section']->getReference().'&src='.$vars['styleguide']->getSource()->getKey();
+            $src = $_SERVER['SCRIPT_NAME'].'?preview&ref='.$vars['section']->getReference().'&src='.$vars['styleguide']->getSource()->getKey();
             $id = str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey());
     ?>
 
