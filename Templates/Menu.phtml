@@ -3,13 +3,13 @@
     <span class="styleguide__nav__brand">Guidance <em>Styleguide Viewer</em></span>
 
     <ul>
-    <li><a href="index.php">Home </a></li>
+    <li><a href="<?= $_SERVER['SCRIPT_NAME'] ?>">Home </a></li>
     <?php
         foreach ($Styleguide->getSources() as $source) {
             echo '<li><span>'. $source->getName() .'</span><ul>';
             foreach ($source->getParser()->getTopLevelSections() as $topLevelSection) {
                 echo '<li>
-                    <a href="index.php?ref='.$topLevelSection->getReference().'&src='.$source->getKey().'" title="'.$topLevelSection->getTitle().'">' .
+                    <a href="'.$_SERVER['SCRIPT_NAME'].'?ref='.$topLevelSection->getReference().'&src='.$source->getKey().'" title="'.$topLevelSection->getTitle().'">' .
                         $topLevelSection->getDescriptionTitle() .
                     '</a>' ;
                     $childSections = $source->getParser()->getSectionChildren($topLevelSection->getReference(), true);
