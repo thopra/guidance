@@ -5,7 +5,7 @@
             echo '<li><span>'. $source->getName() .'</span><ul>';
             foreach ($source->getParser()->getTopLevelSections() as $topLevelSection) {
                 echo '<li>
-                    <a href="'.$_SERVER['SCRIPT_NAME'].'?ref='.$topLevelSection->getReference().'&src='.$source->getKey().'" title="'.$topLevelSection->getTitle().'">' .
+                    <a href="'.\Thopra\Styleguide\Utility\UriUtility::section($topLevelSection->getReference(),$source->getKey()).'" title="'.$topLevelSection->getTitle().'">' .
                         $topLevelSection->getDescriptionTitle() .
                     '</a>' ;
                    

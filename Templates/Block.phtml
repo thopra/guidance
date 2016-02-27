@@ -16,7 +16,7 @@
 
     <?php
         if ($vars['section']->hasMarkup()) {
-            $src = $_SERVER['SCRIPT_NAME'].'?preview&ref='.$vars['section']->getReference().'&src='.$vars['styleguide']->getSource()->getKey();
+            $src = \Thopra\Styleguide\Utility\UriUtility::preview($vars['section']->getReference(),$vars['styleguide']->getSource()->getKey());
             $id = str_replace(".", "_", $vars['section']->getReference() . $vars['styleguide']->getSource()->getKey());
     ?>
 
@@ -106,6 +106,12 @@
                     <dt>Validation (HTML)</dt>
                     <dd>
                         <ul class="styleguide__validationresults" data-validation="results"></ul>
+                    </dd>
+                    <dt>Preview</dt>
+                    <dd>
+                        <a href="<?php echo $src ?>" target="_blank">Preview in new tab</a>
+                        <br />
+                        <img src="<?php echo \Thopra\Styleguide\Utility\UriUtility::previewQr( $vars['section']->getReference(),$vars['styleguide']->getSource()->getKey() ) ?>" alt="preview qr code" />
                     </dd>
 
                     <?php } ?>
