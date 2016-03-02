@@ -40,6 +40,10 @@ class Frontend {
 						}
 					}
 				}
+				
+				if (isset($sourceConf['partialType'])) {
+					$source->setPartialType($sourceConf['partialType']);
+				}
 				$this->styleguide->addSource($source);
 			}
 		}
