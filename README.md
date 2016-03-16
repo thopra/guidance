@@ -10,7 +10,7 @@ The easiest way to create a new project with guidance is using the [guidance-kic
 
 * Uses [kss-php](https://github.com/scaninc/kss-php) to display documented CSS/LESS/SASS code
 * Shows a preview, markup examples and additional information for each documentation section
-* Each section can be resized and viewed isolated individually (includes QR codes for each markup example for quick testing on different mobile devices)
+* Each section can be individually resized and viewed isolated (includes QR codes for each markup example for quick testing on different mobile devices)
 * Supports Partials (currently either as plain phtml files or fluid templates)
 * HTML Validation using the W3C Markup Validation Web Service API
 
@@ -48,7 +48,7 @@ The following tags impact the behaviour of the displayed section:
   <tr>
     <td>@blank!</td>
     <td>none</td>
-    <td>The example will be rendered without any wrapping markup, including `<html>` or `<body>`. Use this if you want to use your own html layout, e.g. when presenting the module in a more complex layout.</td>
+    <td>The example will be rendered without any wrapping markup, including `<html>` or `<body>`. Use this if you want to use your own html structure, e.g. when presenting the module in a more complex layout or dummy.</td>
   </tr>
   <tr>
     <td>@nostandalone!</td>
@@ -64,7 +64,7 @@ The following tags impact the behaviour of the displayed section:
 
 ## Configuration
 
-Guidance uses a configuration file called "guidance.json" in the root directory of your project. The scheme looks like this:
+Guidance uses a configuration file named "guidance.json" in the root directory of your project. The scheme looks like this:
 
     {
     	"title": "Example Styleguide",
