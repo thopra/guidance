@@ -1,6 +1,6 @@
 # GUIDANCE Styleguide Viewer
 
-Guidance is a streamlined frontend for [thopra/styleguide](https://github.com/thopra/styleguide) designed to help develop, maintain, present and control CSS code documented with KSS.
+Guidance is a streamlined frontend for [thopra/styleguide](https://github.com/thopra/styleguide) designed to help develop, maintain, present and control CSS code documented with [KSS](http://warpspire.com/kss/).
 
 ## Install
 
