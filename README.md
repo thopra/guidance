@@ -15,7 +15,7 @@ The easiest way to create a new project with guidance is using the [guidance-kic
 * HTML Validation using the W3C Markup Validation Web Service API
 
 ### Partials
-In Addition to the "Markup:" comment provided by kss-php you can use the Keyword "Partial" that specifies a path to a Partial which should be rendered as the example Markup.
+In Addition to the "Markup:" comment provided by kss-php you can use the Keyword "Partial" that specifies a path to a partial which should be rendered as the example markup.
 
     /*
      * Partial: Components/Dropdown
