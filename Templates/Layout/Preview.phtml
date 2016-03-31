@@ -7,7 +7,7 @@
     <?php 
 
     foreach ($Styleguide->getSource()->getCSSResources() as $resource) {
-    	echo '<link rel="stylesheet" type="text/css" href="'.$resource.'" />';
+    	echo '<link rel="stylesheet" type="text/css" href="'.$resource.'?v='. time().'" />';
     }
 
     ?>
@@ -20,7 +20,7 @@
 	<?php $Styleguide->displayTemplate('Preview', $vars);
 
     foreach ($Styleguide->getSource()->getJSResources() as $resource) {
-        echo '<script src="'.$resource.'"></script>';
+        echo '<script src="'.$resource.'?v='. time().'"></script>';
     }
 
      ?>
