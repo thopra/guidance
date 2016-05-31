@@ -7,7 +7,8 @@
 	},
 	"settings": {
 		"loadPreviewsAtStart": 3,
-		"enableValidation": true
+		"enableValidation": true,
+		"templateDir": false
 	},
 	"sources": []
 }

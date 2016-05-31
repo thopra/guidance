@@ -47,8 +47,12 @@ class Frontend {
 				$this->styleguide->addSource($source);
 			}
 		}
-
-		$this->styleguide->setTemplateDir('guidance/Templates');
+		$this->styleguide->setDefaultTemplateDir('guidance/Templates');
+		$this->styleguide->setTemplateDir( $this->styleguide->getDefaultTemplateDir() );
+		if ($this->config['settings']['templateDir']) {
+			$this->styleguide->setTemplateDir($this->config['settings']['templateDir']);
+		}
+		
 		$this->styleguide->render();
 	}
 
