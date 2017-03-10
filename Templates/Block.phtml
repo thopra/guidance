@@ -1,7 +1,10 @@
 <div class="styleguide__block" id="r<?php echo $vars['section']->getReference(); ?>">
+    
     <?php 
         $level = $vars['section']->getDepth()+1;
     ?>
+
+    <?php if (!isset($vars['hideDescription']) || $vars['hideDescription'] == FALSE) { ?>
     <h<?php echo $level ?> class="styleguide__block__header">
         <span class="styleguide__block__title"><?php echo $vars['section']->getDescriptionTitle(); ?></span>
         <?php if ($vars['section']->getExperimental()) { ?><span class="label label-danger">Experimental!</span> <?php } ?>
@@ -12,6 +15,7 @@
     <div class="styleguide__block__description">
         <p><?php echo nl2br($vars['section']->getDescriptionText()); ?></p>
     </div>
+    <?php } ?>
 
 
     <?php

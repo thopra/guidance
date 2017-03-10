@@ -27,6 +27,14 @@ class Frontend {
 			$this->styleguide->setCacheLifetime($this->config['cache']['lifetime']);
 		}
 
+		if (isset($this->config['settings']['navLevels'])) {
+			$this->styleguide->setNavLevels((int)$this->config['settings']['navLevels']);
+		}
+
+		if (isset($this->config['settings']['brand'])) {
+			$this->styleguide->setBrand($this->config['settings']['brand']);
+		}
+
 		if(is_array($this->config['sources'])) {
 			foreach ($this->config['sources'] as $key => $sourceConf) {
 				$source = new \Thopra\Styleguide\Source\Source(dirname($this->configFile).'/'.$sourceConf['dir'], $sourceConf['key'], $sourceConf['title']);

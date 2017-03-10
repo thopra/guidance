@@ -1,27 +1,48 @@
 <nav role="main" id="styleguideSections" class="styleguide__nav sidr left" >
 
-    <span class="styleguide__nav__brand">Guidance <em>Styleguide Viewer</em></span>
+    <span class="styleguide__nav__brand"><?= $Styleguide->getBrand() ?></span>
 
     <ul>
     <li><a href="<?= $_SERVER['SCRIPT_NAME'] ?>">Home </a></li>
     <?php
-        foreach ($Styleguide->getSources() as $source) {
-            echo '<li><span>'. $source->getName() .'</span><ul>';
-            foreach ($source->getParser()->getTopLevelSections() as $topLevelSection) {
-                echo '<li>
-                    <a href="'.\Thopra\Styleguide\Utility\UriUtility::section($topLevelSection->getReference(),$source->getKey()).'" title="'.$topLevelSection->getTitle().'">' .
-                        $topLevelSection->getDescriptionTitle() .
+        $levels = $Styleguide->getNavLevels();
+        function navLevel($sections, $source, $Styleguide, $levels) {
+            foreach ($sections as $section) {
+                $childSections = $source->getParser()->getSectionChildren($section->getReference(), true);
+                echo '<li>';
+                if ($levels < 2 || !count($childSections)) {
+                    echo '<a href="'.\Thopra\Styleguide\Utility\UriUtility::section($section->getReference(),$source->getKey()).'" title="'.$section->getTitle().'">'.
+                        $section->getDescriptionTitle() .
                     '</a>' ;
-                    $childSections = $source->getParser()->getSectionChildren($topLevelSection->getReference(), true);
-                    if (is_array($childSections) && count($childSections) && $Styleguide->getRef() == $topLevelSection->getReference() && $source->getKey() == $Styleguide->getSrc(null)) {
-                        echo '<ul class="nav">';
-                            foreach ($childSections as $key => $navSection) {
-                                echo '<li><a href="#r' . $navSection->getReference() . '">' . $navSection->getDescriptionTitle() .'</a>';
-                            }
+                    $childSections = $source->getParser()->getSectionChildren($section->getReference(), true);
+                    if (is_array($childSections) && count($childSections) && strpos($Styleguide->getRef(), preg_replace("/\.0$/", "", $section->getReference())) === 0 && $source->getKey() == $Styleguide->getSrc(null)) {
+                        echo '<ul class="nav" id="m'.str_replace(".", "_", $section->getReference().$source->getKey()).'">';
+                        foreach ($childSections as $key => $navSection) {
+                            echo '<li><a href="#r' . $navSection->getReference() . '">' . $navSection->getDescriptionTitle() .'</a>';
+                        }
                         echo '</ul>';
                     }
+                } else {
+                    echo '<a href="#m'.str_replace(".", "_", $section->getReference().$source->getKey()).'" data-toggle="collapse" data-parent="#styleguideSections" title="'.$section->getTitle().'">' .
+                        $section->getDescriptionTitle() .
+                    '</a>' ;
+                    if (is_array($childSections) && count($childSections)) {
+                        echo '<div class="collapse';
+                        if (strpos($Styleguide->getRef(), preg_replace("/\.0$/", "", $section->getReference())) === 0) {
+                            echo " in";
+                        }
+                        echo '" id="m'.str_replace(".", "_", $section->getReference().$source->getKey()) .'"><ul class="nav">';
+                        navLevel($childSections, $source, $Styleguide, $levels-1);
+                        echo '</ul>';
+                    }
+                       
+                }
                 echo "</li>";
             }
+        }
+        foreach ($Styleguide->getSources() as $source) {
+            echo '<li><span>'. $source->getName() .'</span><ul>';
+            navLevel($source->getParser()->getTopLevelSections(), $source, $Styleguide, $levels-1);
             echo "</ul></li>";
         }
     ?>

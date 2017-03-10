@@ -6,9 +6,11 @@
 		"lifetime": 5
 	},
 	"settings": {
+		"brand": "Guidance <em>Styleguide Viewer</em>",
 		"loadPreviewsAtStart": 3,
 		"enableValidation": true,
-		"templateDir": false
+		"templateDir": false,
+		"navLevels": 2
 	},
 	"sources": []
 }
