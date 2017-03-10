@@ -1,5 +1,6 @@
 {
 	"title": "Untitled Styleguide",
+	"brand": "Guidance <em>Styleguide Viewer</em>",
 	"cache": {
 		"enable": true,
 		"dir": "guidance/Cache/",
@@ -8,7 +9,8 @@
 	"settings": {
 		"loadPreviewsAtStart": 3,
 		"enableValidation": true,
-		"templateDir": false
+		"templateDir": false,
+		"navLevels": 2
 	},
 	"sources": []
 }

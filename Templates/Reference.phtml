@@ -4,8 +4,13 @@
 <h1><?php echo $vars['section']->getDescriptionTitle() ?></h1>
 <p class="lead"><?php echo $vars['section']->getDescriptionText(); ?></p>
 <?php
+
+    if ($vars['section']->getMarkupNormal('{class}')) {
+        $Styleguide->displayTemplate('Block', array('section' => $vars['section'], 'styleguide' => $Styleguide, 'hideDescription' => TRUE)); 
+    }
+
     foreach ($Styleguide->getSource()->getParser()->getSectionChildren($Styleguide->getRef()) as $section) {
-        $Styleguide->displayTemplate('Block', array('section' => $section, 'styleguide' => $Styleguide));
+        $Styleguide->displayTemplate('Block', array('section' => $section, 'styleguide' => $Styleguide)); 
     }
 ?>
 </article>
