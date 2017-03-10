@@ -1,5 +1,6 @@
 {
 	"title": "Untitled Styleguide",
+	"brand": "Guidance <em>Styleguide Viewer</em>",
 	"cache": {
 		"enable": true,
 		"dir": "guidance/Cache/",
