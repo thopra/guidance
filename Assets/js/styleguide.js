@@ -214,7 +214,13 @@ $(function () {
 			var win = $frame.get(0).contentWindow || $frame.get(0),
 				doc = $frame.get(0).contentDocument || $frame.get(0).contentWindow.document;
 				//height = $($frame.contents()).find('body').outerHeight(true);
+
 			if (doc && doc.body) {
+
+				if (doc.body.parentNode.className.indexOf('guidance-fit-in-frame') === -1) {
+					doc.body.parentNode.className = doc.body.parentNode.className + " guidance-fit-in-frame";
+				}
+
 				height = doc.body.scrollHeight;
 				if (height != $parent.height()) {
 					$parent.height(height);
