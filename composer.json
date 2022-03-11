@@ -14,7 +14,7 @@
     ],
     "license": "MIT",
     "require": {
-        "thopra/styleguide":"dev-develop",
+        "thopra/styleguide":"dev-master",
     	"thopra/guidance-installer":"dev-master"
     },
     "authors": [
