@@ -4,7 +4,8 @@
     "type": "thopra-guidance",
     "repositories": [
         { "type": "vcs", "url": "https://github.com/thopra/styleguide.git" },
-        { "type": "vcs", "url": "https://github.com/thopra/guidance-installer.git" }
+        { "type": "vcs", "url": "https://github.com/thopra/guidance-installer.git" },
+        { "type": "vcs", "url": "https://github.com/thopra/kss-php.git" }
     ],
     "keywords": [
         "kss",
