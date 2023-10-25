@@ -14,7 +14,7 @@
     ],
     "license": "MIT",
     "require": {
-        "thopra/styleguide":"dev-master",
+        "thopra/styleguide":"dev-symfony6",
     	"thopra/guidance-installer":"dev-master"
     },
     "authors": [
